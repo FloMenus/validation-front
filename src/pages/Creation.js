@@ -3,6 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 import H2 from "../components/H2";
 import Input from "../components/Input";
+import Form from "../components/Form";
+import Button from "../components/Button";
 
 function Creation() {
   const Navigate = useNavigate();
@@ -18,8 +20,6 @@ function Creation() {
   const [errorPassword, setErrorPassword] = useState("");
   const [errorCity, setErrorCity] = useState("");
   const [errorImage, setErrorImage] = useState("");
-
-
 
   // USER ////////////////////////////////////////////////////////////////
 
@@ -43,14 +43,14 @@ function Creation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    resetErrors()
+    resetErrors();
 
     const user = {
-      name : userName,
-      email : userEmail,
-      password : userPassword,
-      city : userCity,
-      profile_picture : userImage,
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      city: userCity,
+      profile_picture: userImage,
     };
 
     const request = await fetch(`http://localhost:8000/validation`, {
@@ -65,7 +65,7 @@ function Creation() {
     if (request.status === 200) {
       Navigate("/");
     } else {
-      response.map (res => {
+      response.map((res) => {
         if (res.param === "name") {
           setErrorName(res.msg);
         } else if (res.param === "email") {
@@ -79,7 +79,7 @@ function Creation() {
         }
       });
     }
-  }
+  };
 
   const resetErrors = () => {
     setErrorName("");
@@ -87,21 +87,19 @@ function Creation() {
     setErrorPassword("");
     setErrorCity("");
     setErrorImage("");
-  }
+  };
 
   return (
     <>
-      {console.log(`name=${userName} email=${userEmail} password=${userPassword} city=${userCity} image=${userImage}`)}
-      {console.log(`errorName=${errorName} errorEmail=${errorEmail} errorPassword=${errorPassword} errorImage=${errorCity} errorImage=${errorImage}`)}
       <H2>Add an user</H2>
-      <form onSubmit={handleSubmit} class="form-control w-full max-w-xs gap-3">
+      <Form onSubmit={handleSubmit}>
         <Input
           type="text"
           name="name"
           placeholder="Name"
           label="Name"
           onChange={handleChangeName}
-          error = {errorName}
+          error={errorName}
         />
         <Input
           type="text"
@@ -109,7 +107,7 @@ function Creation() {
           placeholder="Password"
           label="Password"
           onChange={handleChangePassword}
-          error = {errorPassword}
+          error={errorPassword}
         />
         <Input
           type="text"
@@ -117,7 +115,7 @@ function Creation() {
           placeholder="Email"
           label="Email"
           onChange={handleChangeEmail}
-          error = {errorEmail}
+          error={errorEmail}
         />
         <Input
           type="text"
@@ -125,7 +123,7 @@ function Creation() {
           placeholder="Image link"
           label="Profile picture"
           onChange={handleChangeImage}
-          error = {errorImage}
+          error={errorImage}
         />
         <label class="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2 md:mb-1">
           City
@@ -133,7 +131,7 @@ function Creation() {
         <select
           class="select select-bordered w-full max-w-xs"
           onChange={handleChangeCity}
-          error = {errorCity}
+          error={errorCity}
         >
           <option disabled selected>
             City
@@ -142,10 +140,7 @@ function Creation() {
           <option>Tokyo</option>
           <option>Los Angeles</option>
         </select>
-        <button type="submit" class="btn btn-primary">
-          Create
-        </button>
-      </form>
+      </Form>
     </>
   );
 }
