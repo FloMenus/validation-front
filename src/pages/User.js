@@ -19,7 +19,7 @@ function User() {
 
   return (
     <>
-      <H2>{user.name}</H2>
+      <H2>User</H2>
       <aside class="overflow-hidden bg-gray-900 sm:grid sm:grid-cols-2">
         <div class="p-8 md:p-12 lg:px-16 lg:py-24">
           <div class="max-w-xl mx-auto text-center sm:text-left">
